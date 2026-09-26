@@ -1,8 +1,8 @@
-CVAT task reference — thay mọi placeholder mới là xong.
+CVAT task reference — Thông tin task và export bàn giao.
 
-CVAT version: TODO
-Task calibration (tên, id): TODO
-Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: TODO
-File export đã nộp (đường dẫn trong repo): TODO
-Guideline version dán trong Guide của task: TODO
-Ghi chú cho người tiếp nhận: TODO
+CVAT version: CVAT 2.74.1 (Local Docker Desktop)
+Task calibration (tên, id): team08-calib-thang (Job #18), team08-calib-nam (Job #20)
+Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: team08-drivable-v3 (Job #22) — Cập nhật đầy đủ các quy tắc giải quyết bất đồng từ blind handoff
+File export đã nộp (đường dẫn trong repo): project/06_calibration_exports/thang.zip, project/06_calibration_exports/nam.zip, project/07_blind_handoff/peer_output/team08-blind.zip
+Guideline version dán trong Guide của task: v3
+Ghi chú cho người tiếp nhận: Dự án hoàn thành đầy đủ quy trình kiểm thử bàn giao 6 Gate (G1–G6). Bộ ontology gồm 4 class polygon (direct_drivable, alternative_drivable, uncertain_area, sidewalk) và 1 tag (review_required). Đã xử lý triệt để các ranh giới lề đường cao tốc (shoulder), hàng xe đỗ ban đêm, dốc garage qua vỉa hè và vạch vàng kép làn ngược chiều.

@@ -1,6 +1,6 @@
 # Annotation guideline — Drivable Area tại ranh giới mặt đường, vỉa hè và lề đường
 
-**Version:** v2
+**Version:** v3
 
 ---
 
@@ -91,8 +91,10 @@ Gắn nhãn tag cho toàn bộ ảnh khi điều kiện môi trường hoặc ch
 | Đảo nổi bê tông, bồn cây | **IGNORE** (Không vẽ) | Bỏ qua các đối tượng kiến trúc khác. |
 | Làn đường ngược chiều | **IGNORE** (Không vẽ) | **Critical!** Tuyệt đối không vẽ lấn qua tim đường / vạch vàng kép. |
 | Dải phân cách mềm (vạch chéo cấm đè) | **IGNORE** (Không vẽ) | Bo viền polygon ngoài vùng sơn mắt võng / vạch sọc chéo. |
-| Mọi phương tiện (đang chạy / đỗ) và Người đi bộ | **IGNORE** phần bị chiếm | Dừng và bo viền polygon theo mép ngoài của đối tượng. Tuyệt đối không vẽ trùm qua gầm xe hay chân người. |
+| Mọi phương tiện (đang chạy / đỗ) và Người đi bộ | **IGNORE** phần bị chiếm | Dừng và bo viền polygon theo mép ngoài của đối tượng. Tuyệt đối không vẽ trùm qua gầm xe hay chân người (kể cả ban đêm). |
 | Hàng cọc tiêu công trường / Rào chắn | **IGNORE** vùng sau rào | Dừng polygon phía ngoài hàng cọc tiêu phản quang. |
+| Dải lề đường cao tốc (Shoulder ngoài vạch trắng liền) | **IGNORE** (Không vẽ) | Dải bê tông/nhựa ngoài vạch liền không phải làn lưu thông và không phải vỉa hè; không gán drivable hay sidewalk. |
+| Sân cây xăng / Bãi đỗ xe tư nhân sau vỉa hè | **IGNORE** (Không vẽ) | Khu vực dịch vụ ngoài hành lang đường bộ, không vẽ polygon drivable. |
 
 ---
 
