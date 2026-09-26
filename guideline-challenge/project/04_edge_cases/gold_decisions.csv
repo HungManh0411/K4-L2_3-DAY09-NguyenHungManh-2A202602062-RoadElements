@@ -1,1 +1,22 @@
 sample_id,decision_id,expected,severity,rationale
+BDD11,d1,label=drivable_area areaType=direct phủ trùm vạch đi bộ phía trước (không cắt polygon tại vạch),major,guideline mục 5: crosswalk LABEL trùm qua; mục 10 lỗi 5
+BDD11,d2,KHÔNG có drivable_area bên trái vạch vàng kép ở đoạn đường sau giao lộ,critical,mục 5: làn ngược chiều IGNORE; lấn sang = lỗi critical mục 10.1
+BDD11,d3,hai hàng xe đỗ hai bên: drivable_area bo theo mép ngoài thân xe đỗ; không vẽ vào gầm xe đỗ,major,mục 3 và mục 5: xe đỗ tĩnh là vật cản
+BDD11,d4,label=sidewalk ở góc vỉa hè bên phải (nơi người đi bộ đứng); không chồng lên drivable_area,major,mục 4.2 và mục 5: vỉa hè LABEL sidewalk
+BDD04,d1,label=drivable_area areaType=direct x1 ở bên phải vạch vàng kép,major,làn ego rõ; mục 5 dòng 1
+BDD04,d2,KHÔNG có drivable_area bên trái vạch vàng kép (làn có ký hiệu xe đạp và xe đỗ bên trái),critical,mục 5: làn ngược chiều IGNORE
+BDD04,d3,dải bê tông bên phải kể cả các dốc lối vào garage = sidewalk; KHÔNG có drivable_area trên đó,critical,mục 1 và mục 4.2: vỉa hè dành cho người đi bộ; downstream không được lập quỹ đạo vào đó
+BDD04,d4,geometry: cạnh chung drivable_area / sidewalk bên phải nằm tại chân bó vỉa (≤ 3 px); hai polygon không chồng nhau,minor,mục 3 tolerance tại curb base; mục 4.2 không đè lên nhau
+BDD12,d1,label=drivable_area phủ trùm vạch đi bộ phía trước (không cắt polygon tại vạch),major,mục 5: crosswalk LABEL trùm qua
+BDD12,d2,KHÔNG có drivable_area bên trái vạch vàng (làn ngược chiều có taxi),critical,mục 5: làn ngược chiều IGNORE
+BDD12,d3,dải vỉa hè bên phải nơi hai người đứng = sidewalk; KHÔNG có drivable_area trên đó,critical,mục 1 và mục 4.2: vỉa hè; người đi bộ đứng trên đó
+BDD12,d4,sân cây xăng phía sau vỉa hè không có polygon nào,minor,không phải mặt đường chính cũng không phải vỉa hè → không vẽ
+BDD12,d5,geometry: mép trái drivable_area bám mép phải vạch vàng; không phủ lên vạch vàng (≤ 3 px),minor,mục 3: bám mép vạch sơn
+BDD20,d1,label=drivable_area areaType=direct ở làn giữa vạch vàng kép và vạch trắng liền bên phải,major,mục 5 dòng 1
+BDD20,d2,KHÔNG có drivable_area bên trái vạch vàng kép,critical,mục 5: làn ngược chiều IGNORE
+BDD20,d3,dải cỏ hai bên không có polygon; sidewalk chỉ phủ dải vỉa hè phía sau dải cỏ,major,mục 5: bồn cây IGNORE; mục 4.2 sidewalk là bề mặt dành cho người đi bộ
+BDD20,d4,geometry: polygon dừng tại rìa giá đỡ điện thoại ở đáy ảnh; không phủ lên giá đỡ,minor,mục 6: vùng bị che hoàn toàn dừng tại rìa vùng che
+BDD26,d1,label=drivable_area areaType=direct ở làn phía trước (vạch trắng đứt nhìn thấy),major,đêm nhưng mặt đường giữa vẫn thấy; mục 6 ban đêm
+BDD26,d2,needs_review=true trên polygon drivable_area,major,mục 4.1: nghi ngờ ranh giới do ánh sáng yếu thì tick needs_review
+BDD26,d3,KHÔNG gắn tag review_required,major,mặt đường vẫn nhìn thấy; tag chỉ dùng khi toàn ảnh bị cản trở nghiêm trọng (mục 7.4)
+BDD26,d4,KHÔNG có drivable_area trên đảo / góc vỉa hè có cột đèn bên trái,critical,mục 5 và mục 10.2: không trèo lên đảo / vỉa hè
