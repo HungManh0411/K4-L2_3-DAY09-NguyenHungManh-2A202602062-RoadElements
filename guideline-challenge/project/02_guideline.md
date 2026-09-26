@@ -41,6 +41,10 @@
   - **Phương tiện đang di chuyển & Người đi bộ:** Áp dụng nguyên tắc *Amodal Ground Surface* — Polygon được vẽ bao trùm xuyên qua gầm xe đang lưu thông phía trước hoặc chân người đi bộ đang băng qua đường (không khoét lỗ polygon), vì đó là bề mặt đường xe chạy được ngay khi đối tượng di chuyển.
   - **Xe đỗ tĩnh dài hạn bên lề đường:** Dừng polygon tại mép ngoài thân xe/lốp xe đỗ; KHÔNG vẽ luồn vào gầm xe đỗ.
   - **Điểm tụ / Đường chân trời:** Dừng polygon tại vị trí đường chân trời hoặc điểm xa nhất mắt thường còn phân biệt được mặt đường rõ ràng; không kéo polygon vượt quá đường chân trời lên nền trời.
+- **Quy tắc không gian (Spatial Rule) xử lý trạng thái Ego Vehicle:**
+  - Không phân biệt xe Ego đang đỗ hay đang di chuyển. Hệ thống chỉ quan tâm "Xe đang nằm ở đâu".
+  - **Làn mà xe đang đứng/chạy lên trên:** Mặc định LUÔN LUÔN là `direct`. Dù xe Ego đang đỗ trên làn đỗ xe bên phải, thì không gian ngay trước mũi xe vẫn là hướng đi trực tiếp của nó.
+  - **Làn bên cạnh (Làn đường chính):** Được gán là `alternative`. Khi xe Ego muốn hòa vào dòng giao thông từ chỗ đỗ, Path Planning sẽ tự tính quỹ đạo lách từ `direct` sang `alternative` bên trái.
 
 ---
 
@@ -72,7 +76,7 @@ Gắn nhãn tag cho toàn bộ ảnh khi điều kiện môi trường hoặc ch
 
 | Đối tượng / Vùng quan sát | Quyết định gán nhãn | Quy tắc chi tiết |
 |---|---|---|
-| Làn đường hiện tại của ego | **LABEL** (`areaType = direct`) | Vẽ polygon kín toàn bộ làn xe ego đang đi. |
+| Làn đường hiện tại của ego | **LABEL** (`areaType = direct`) | Vẽ polygon kín toàn bộ làn/vùng xe ego đang nằm trên (cả khi xe đang đỗ). |
 | Làn cùng chiều bên cạnh | **LABEL** (`areaType = alternative`) | Vẽ polygon riêng cho làn bên cạnh, ngăn cách bởi vạch đứt. |
 | Vạch đi bộ qua đường (Crosswalk) | **LABEL** (Trùm qua) | Giữ nguyên polygon `direct`/`alternative` chạy trùm qua vạch ngựa vằn. |
 | Vạch dừng xe (Stop line) | **LABEL** (Trùm qua) | Polygon phủ trùm qua vạch dừng xe. |
