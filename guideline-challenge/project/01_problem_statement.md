@@ -13,13 +13,13 @@ mục đích sử dụng không rõ trong ảnh. Khó khăn chính là không nh
 
 1. **Downstream task / model / user là ai?** Mô hình perception và hệ thống lập kế hoạch đường đi cần bản đồ pixel
 	các vùng xe có thể đi vào để ước lượng free space phía trước xe.
-2. **Output annotation nào thực sự cần?** Polygon theo pixel cho `drivable_area` (có kèm attribute `areaType` để phân biệt `direct`/`alternative`/`uncertain`); polygon rời cho `sidewalk` (vỉa hè). Nếu ảnh thiếu bằng chứng, dùng attribute `uncertain` hoặc gắn tag `review_required` cho ảnh.
-3. **Failure nào gây hậu quả lớn nhất?** Vẽ polygon `drivable_area` lấn vào khu vực `sidewalk`, khiến hệ thống có thể lập đường đi đâm vào người đi bộ. Đây là lỗi `critical`.
+2. **Output annotation nào thực sự cần?** Polygon theo pixel cho 3 loại mặt đường riêng biệt: `direct_drivable`, `alternative_drivable`, `uncertain_area`; và polygon rời cho `sidewalk` (vỉa hè). Nếu ảnh thiếu bằng chứng, dùng class `uncertain_area` hoặc gắn tag `review_required` cho ảnh.
+3. **Failure nào gây hậu quả lớn nhất?** Vẽ polygon drivable lấn vào khu vực `sidewalk`, khiến hệ thống có thể lập đường đi đâm vào người đi bộ. Đây là lỗi `critical`.
 4. **Khi ambiguity không resolve được, ai / ở đâu là escalation path?** Annotator vẽ polygon với attribute `uncertain`, hoặc gắn tag `review_required` cho ảnh và chuyển QA owner xem xét; không tự suy luận từ hình dạng bề mặt đơn thuần.
 
 ## Scope
 
-- **Trong scope (bắt buộc label):** Mặt đường xe chạy và phần lề liền kề chỉ khi có bằng chứng nhìn thấy được rằng xe có thể đi vào (Gán polygon `drivable_area`). Bề mặt vỉa hè dành cho người đi bộ (Gán polygon `sidewalk`).
+- **Trong scope (bắt buộc label):** Mặt đường xe chạy và phần lề liền kề chỉ khi có bằng chứng nhìn thấy được rằng xe có thể đi vào (Gán các polygon `direct_drivable`, `alternative_drivable`). Bề mặt vỉa hè dành cho người đi bộ (Gán polygon `sidewalk`).
 - **Ngoài scope (ignore):** Vùng không thuộc khu vực chuyển tiếp đang xét như mặt tiền, bãi đỗ riêng và phần cảnh
   ngoài vùng đường/lề/vỉa hè. Không cần vẽ nền ngoài scope.
 - **Geometry tolerance:** Polygon bám theo ranh giới mặt đường/curb nhìn thấy; sai lệch tối đa 3 px ở ảnh gốc

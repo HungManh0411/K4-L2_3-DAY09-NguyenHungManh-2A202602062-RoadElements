@@ -36,9 +36,8 @@
 - **Độ chính xác hình học (Geometry Tolerance):**
   - Biên của polygon phải bám sát ranh giới mặt đường nhìn thấy / chân đá bó vỉa (Curb base) hoặc mép vạch sơn kẻ đường với sai lệch **không quá 3 pixel** ở độ phân giải gốc 1280×720.
   - Tại các khúc cua hoặc vạch kẻ cong: Phải đặt nhiều điểm neo liên tiếp để biên polygon cong mượt mà, không cắt góc (Cut corners).
-- **Quy tắc Amodal vs. Visible Surface:**
-  - **Phương tiện đang di chuyển & Người đi bộ:** Áp dụng nguyên tắc *Amodal Ground Surface* — Polygon được vẽ bao trùm xuyên qua gầm xe đang lưu thông phía trước hoặc chân người đi bộ đang băng qua đường (không khoét lỗ polygon), vì đó là bề mặt đường xe chạy được ngay khi đối tượng di chuyển.
-  - **Xe đỗ tĩnh dài hạn bên lề đường:** Dừng polygon tại mép ngoài thân xe/lốp xe đỗ; KHÔNG vẽ luồn vào gầm xe đỗ.
+- **Quy tắc Visible Surface (Chỉ vẽ phần mặt đường nhìn thấy):**
+  - **Mọi phương tiện (đang di chuyển hoặc đỗ tĩnh) & Người đi bộ:** Tuyệt đối KHÔNG vẽ polygon bao trùm lên đối tượng (không luồn vào gầm xe hay chân người). Polygon phải lượn vòng qua hoặc dừng lại ở rìa bánh xe/thân xe/chân người để chừa các đối tượng này ra khỏi mặt đường.
   - **Điểm tụ / Đường chân trời:** Dừng polygon tại vị trí đường chân trời hoặc điểm xa nhất mắt thường còn phân biệt được mặt đường rõ ràng; không kéo polygon vượt quá đường chân trời lên nền trời.
 - **Quy tắc không gian (Spatial Rule) xử lý trạng thái Ego Vehicle:**
   - Không phân biệt xe Ego đang đỗ hay đang di chuyển. Hệ thống chỉ quan tâm "Xe đang nằm ở đâu".
@@ -49,23 +48,27 @@
 
 ## 4. Taxonomy
 
-Hệ thống nhãn trên CVAT gồm 1 Class chính cho bề mặt đường và 1 Class Tag cho mức ảnh:
+## 4. Taxonomy
 
-### 4.1 Class: `drivable_area` (Type: `polygon`)
-Bao gồm các thuộc tính (Attributes):
-1. **`areaType`** (Select, Mutable: `false`):
-   - `direct`: Làn đường mà xe ego hiện đang lưu thông trên đó, có quyền ưu tiên đi thẳng.
-   - `alternative`: Làn đường cùng chiều mà xe ego có thể chuyển làn hợp pháp sang đó mà không vi phạm vạch kẻ liền hoặc dải phân cách.
-   - `uncertain`: Vùng mặt đường nhìn thấy nhưng không đủ bằng chứng vạch kẻ/biển báo để khẳng định chắc chắn là direct hay alternative (ví dụ giữa ngã tư lớn hoặc đoạn đường tách làn đang thi công).
-   - `__undefined__`: Giá trị mặc định khi tạo mới polygon. Bắt buộc annotator phải chủ động chọn một trong 3 giá trị trên; không được để `__undefined__`.
-2. **`needs_review`** (Checkbox, Default: `false`):
-   - Đánh dấu tích `true` khi annotator còn nghi ngờ ranh giới do bóng râm, góc khuất hoặc ánh sáng yếu cần QA kiểm tra lại.
+Hệ thống nhãn trên CVAT gồm 4 Class Polygon độc lập (để có màu hiển thị khác nhau) và 1 Class Tag cho mức ảnh:
 
-### 4.2 Class: `sidewalk` (Type: `polygon`)
+### 4.1 Class: `direct_drivable` (Type: `polygon`)
+Làn đường mà xe ego hiện đang lưu thông trên đó, có quyền ưu tiên đi thẳng.
+- **Thuộc tính `needs_review`** (Checkbox, Default: `false`): Đánh dấu `true` khi nghi ngờ ranh giới do bóng râm, góc khuất.
+
+### 4.2 Class: `alternative_drivable` (Type: `polygon`)
+Làn đường cùng chiều mà xe ego có thể chuyển làn hợp pháp sang đó mà không vi phạm vạch kẻ liền.
+- **Thuộc tính `needs_review`** (Checkbox, Default: `false`): Như trên.
+
+### 4.3 Class: `uncertain_area` (Type: `polygon`)
+Vùng mặt đường nhìn thấy nhưng không đủ bằng chứng vạch kẻ/biển báo để khẳng định chắc chắn là direct hay alternative.
+- **Thuộc tính `needs_review`** (Checkbox, Default: `false`): Như trên.
+
+### 4.4 Class: `sidewalk` (Type: `polygon`)
 Bề mặt vỉa hè được nâng cao hoặc lót gạch dành riêng cho người đi bộ.
-- Bắt buộc vẽ ranh giới tách biệt hoàn toàn (không đè lên) polygon của `drivable_area`.
+- Bắt buộc vẽ ranh giới tách biệt hoàn toàn (không đè lên) polygon của đường xe chạy.
 
-### 4.3 Class: `review_required` (Type: `tag`)
+### 4.5 Class: `review_required` (Type: `tag`)
 Gắn nhãn tag cho toàn bộ ảnh khi điều kiện môi trường hoặc chất lượng ảnh không cho phép gán nhãn đáng tin cậy.
 - **`reason`** (Select, Default: `__undefined__`):
   - `severe_weather_snow_rain`: Mưa lớn/tuyết phủ che mất hoàn toàn mặt đường.
@@ -79,17 +82,16 @@ Gắn nhãn tag cho toàn bộ ảnh khi điều kiện môi trường hoặc ch
 
 | Đối tượng / Vùng quan sát | Quyết định gán nhãn | Quy tắc chi tiết |
 |---|---|---|
-| Làn đường hiện tại của ego | **LABEL** (`areaType = direct`) | Vẽ polygon kín toàn bộ làn/vùng xe ego đang nằm trên (cả khi xe đang đỗ). |
-| Làn cùng chiều bên cạnh | **LABEL** (`areaType = alternative`) | Vẽ polygon riêng cho làn bên cạnh, ngăn cách bởi vạch đứt. |
+| Làn đường hiện tại của ego | **LABEL** (`direct_drivable`) | Vẽ polygon kín toàn bộ làn/vùng xe ego đang nằm trên (cả khi xe đang đỗ). |
+| Làn cùng chiều bên cạnh | **LABEL** (`alternative_drivable`) | Vẽ polygon riêng cho làn bên cạnh, ngăn cách bởi vạch đứt. |
 | Vạch đi bộ qua đường (Crosswalk) | **LABEL** (Trùm qua) | Giữ nguyên polygon `direct`/`alternative` chạy trùm qua vạch ngựa vằn. |
 | Vạch dừng xe (Stop line) | **LABEL** (Trùm qua) | Polygon phủ trùm qua vạch dừng xe. |
-| Giao lộ / Ngã tư thông thoáng | **LABEL** (`direct` / `uncertain`) | Làn đi thẳng phỏng đoán là `direct`; vùng ngã rẽ rộng là `alternative` hoặc `uncertain`. |
+| Giao lộ / Ngã tư thông thoáng | **LABEL** (`direct_drivable` / `uncertain_area`) | Làn đi thẳng phỏng đoán là `direct_drivable`; vùng ngã rẽ rộng là `alternative_drivable` hoặc `uncertain_area`. |
 | Vỉa hè (Sidewalk) | **LABEL** (`sidewalk`) | Vẽ polygon bám sát theo phần đường dành cho người đi bộ. Không trèo xuống mặt đường xe chạy. |
 | Đảo nổi bê tông, bồn cây | **IGNORE** (Không vẽ) | Bỏ qua các đối tượng kiến trúc khác. |
 | Làn đường ngược chiều | **IGNORE** (Không vẽ) | **Critical!** Tuyệt đối không vẽ lấn qua tim đường / vạch vàng kép. |
 | Dải phân cách mềm (vạch chéo cấm đè) | **IGNORE** (Không vẽ) | Bo viền polygon ngoài vùng sơn mắt võng / vạch sọc chéo. |
-| Xe đang đỗ dài hạn sát lề đường | **IGNORE** phần xe chiếm | Bo polygon theo mép ngoài thân xe đỗ, không vẽ vào gầm xe đỗ. |
-| Xe đang chạy phía trước / Người đi bộ | **LABEL** (Bao trùm qua) | Không khoét lỗ polygon quanh xe chạy và người đi bộ. |
+| Mọi phương tiện (đang chạy / đỗ) và Người đi bộ | **IGNORE** phần bị chiếm | Dừng và bo viền polygon theo mép ngoài của đối tượng. Tuyệt đối không vẽ trùm qua gầm xe hay chân người. |
 | Hàng cọc tiêu công trường / Rào chắn | **IGNORE** vùng sau rào | Dừng polygon phía ngoài hàng cọc tiêu phản quang. |
 
 ---
@@ -146,7 +148,6 @@ Dưới đây là các ảnh ví dụ mẫu trong tập dữ liệu (thuộc spl
 
 1. **Lấn sang làn đối diện (Critical Error):** Vẽ polygon trùm qua vạch vàng kép sang làn ngược chiều. ➔ *Khắc phục:* Luôn tìm vạch tim đường và hướng đầu xe đối diện trước khi hạ bút vẽ biên trái.
 2. **Trèo lên vỉa hè hoặc đảo giao thông (Critical/Major Error):** Kéo góc polygon vượt lên trên gờ bó vỉa. ➔ *Khắc phục:* Phóng to ảnh (Zoom) và hạ điểm chính xác tại chân mép đá bó vỉa.
-3. **Quên chọn thuộc tính `areaType`:** Để nguyên giá trị mặc định `__undefined__`. ➔ *Khắc phục:* Kiểm tra sidebar Objects bên phải trước khi lưu, đảm bảo mọi polygon đều có giá trị `direct`, `alternative` hoặc `uncertain`.
-4. **Vẽ lấn vào gầm xe đỗ bên đường:** ➔ *Khắc phục:* Chỉ coi làn đường thông thoáng là drivable; hàng xe đỗ là vật cản tĩnh, phải bo viền ngoài thân xe.
-5. **Cắt đứt polygon tại vạch người đi bộ (Crosswalk):** Nhầm vạch ngựa vằn là vùng cấm đi. ➔ *Khắc phục:* Vạch đi bộ vẫn là mặt đường cho xe chạy khi có quyền ưu tiên, polygon phải vẽ phủ trùm qua.
-6. **Vẽ chung 2 làn tách biệt thành 1 polygon:** ➔ *Khắc phục:* Mỗi dải đường rời rạc bắt buộc phải bấm nút **Done (N)** để tạo một polygon mới.
+3. **Vẽ lấn vào gầm xe đỗ bên đường:** ➔ *Khắc phục:* Chỉ coi làn đường thông thoáng là drivable; hàng xe đỗ là vật cản tĩnh, phải bo viền ngoài thân xe.
+4. **Cắt đứt polygon tại vạch người đi bộ (Crosswalk):** Nhầm vạch ngựa vằn là vùng cấm đi. ➔ *Khắc phục:* Vạch đi bộ vẫn là mặt đường cho xe chạy khi có quyền ưu tiên, polygon phải vẽ phủ trùm qua.
+5. **Vẽ chung 2 làn tách biệt thành 1 polygon:** ➔ *Khắc phục:* Mỗi dải đường rời rạc bắt buộc phải bấm nút **Done (N)** để tạo một polygon riêng biệt.
