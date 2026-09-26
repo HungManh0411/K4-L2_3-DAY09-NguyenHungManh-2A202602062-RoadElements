@@ -12,7 +12,7 @@
 |---|---|---|---|
 | Vũ Tiến Thăng | VUTIENTHANG2k4 | Spec owner | `01_problem_statement.md`, `02_guideline.md` |
 | Lê Ngọc Nam | | CVAT và sample-pack owner | `03_ontology_and_cvat_setup.md`, `03_cvat_labels.json`, `sample_pack.csv`, `09_cvat_export_or_task_reference.txt` |
-| Phạm Văn Đông | | Gold và edge-case owner | `04_edge_cases/edge_case_cards.md`, `04_edge_cases/gold_decisions.csv` |
+| Phạm Ngọc Đông | | Gold và edge-case owner | `04_edge_cases/edge_case_cards.md`, `04_edge_cases/gold_decisions.csv` |
 | Ngô Đức Mạnh | | QA và calibration owner | `05_qa_plan.md`, `06_calibration_report.csv` |
 | Nguyễn Hùng Mạnh | | Blind-handoff và tích hợp owner | `07_blind_handoff/`, `08_revision_log.md`, theo dõi `make status` và `make check` |
 
