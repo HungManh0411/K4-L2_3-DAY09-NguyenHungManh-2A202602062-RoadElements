@@ -14,7 +14,6 @@ placeholder mới là xong (gate G2).
 | `sidewalk` | Polygon | class | - | - | - | Khu vực vỉa hè dành cho người đi bộ. |
 | `review_required` | Tag | class (tag) | - | - | - | Báo cáo ngoại lệ cho toàn bộ ảnh. |
 | `reason` | - | attribute (select) | `__undefined__`, `severe_weather_snow_rain`, `zero_visibility`, `unclear_road_boundary`, `conflicting_evidence` | `__undefined__` | false | Lý do báo cáo ngoại lệ. |
-| `reason` | - | attribute (select) | `__undefined__`, `severe_weather_snow_rain`, `zero_visibility`, `unclear_road_boundary`, `conflicting_evidence` | `__undefined__` | false | Lý do báo cáo ngoại lệ. |
 
 ## Class hay attribute
 
@@ -27,6 +26,15 @@ placeholder mới là xong (gate G2).
 - **Tên task calibration** (có version guideline, ví dụ `team07-calib-v1`): `team08-drivable-calib-v1`
 - **Guide của task đã dán `02_guideline.md`?** Đã dán.
 - **Nhóm dùng Track hay Shape, vì sao:** Dùng **Shape**, vì task này xử lý ảnh tĩnh 2D rời rạc (Static Image), không phải chuỗi video liên tục nên không thể dùng Track.
+
+## Sample pack dùng cho CVAT
+
+- **Example (3 ảnh):** `BDD01`, `BDD02`, `BDD03`.
+- **Calibration (7 ảnh):** `BDD04`, `BDD10`, `BDD11`, `BDD16`, `BDD17`, `BDD20`, `BDD24`.
+- **Blind (5 ảnh):** `BDD12`, `BDD15`, `BDD18`, `BDD19`, `BDD23`.
+- Task calibration chỉ upload ảnh trong `build/calibration/`; không đưa ảnh blind vào task này.
+- Các ảnh được nhắc trong phần Examples của guideline (`BDD01`, `BDD02`, `BDD03`, `BDD10`, `BDD16`) chỉ nằm ở
+  split example/calibration và không bị lộ trong blind test.
 
 ## Setup test
 

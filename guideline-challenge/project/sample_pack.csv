@@ -1,1 +1,16 @@
 sample_id,split,tags,reason
+BDD01,example,normal,Highway ban ngày dùng làm baseline cho direct và alternative
+BDD02,example,normal;edge,Giao lộ có crosswalk và ranh giới curb rõ
+BDD03,example,normal;edge,Highway cong kiểm tra polygon bám vạch và lề lát
+BDD04,calibration,edge;ambiguity,Phố dân cư có sidewalk và các lối mở dễ nhầm với curb ramp
+BDD10,calibration,edge;occlusion,Hàng xe đỗ che mép đường và ranh giới sidewalk
+BDD11,calibration,edge;critical,Crosswalk và người đi bộ thử lỗi lấn vào không gian pedestrian
+BDD16,calibration,edge;low_visibility,Hầm chui thử biên đường khi ánh sáng thay đổi
+BDD17,calibration,edge;occlusion;low_visibility,Mưa và vật che trên kính làm giảm khả năng thấy curb
+BDD20,calibration,normal;edge,Đường dân cư có dải đỗ và lề liền kề carriageway
+BDD24,calibration,edge;critical;ambiguity;low_visibility,Tuyết che biên và xe đỗ sát lề
+BDD12,blind,normal,Cảnh baseline có crosswalk và sidewalk để kiểm tra rule cơ bản
+BDD15,blind,edge;critical,Curb và xe đỗ sát sidewalk tạo nguy cơ polygon lấn vùng pedestrian
+BDD18,blind,edge;critical;low_visibility,Crosswalk ban đêm thử geometry và quyết định escalation
+BDD19,blind,edge;ambiguity,Dải mép đường rộng dễ nhầm shoulder với pedestrian path
+BDD23,blind,edge;critical;ambiguity;occlusion;low_visibility,Tuyết và xe đỗ che ranh giới road-sidewalk
