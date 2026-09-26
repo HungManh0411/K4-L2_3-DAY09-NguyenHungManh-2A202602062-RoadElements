@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "name": "drivable_area",
+    "color": "#00A65A",
+    "type": "polygon",
+    "attributes": [
+      {
+        "name": "areaType",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "__undefined__",
+        "values": [
+          "__undefined__",
+          "direct",
+          "alternative",
+          "uncertain"
+        ]
+      },
+      {
+        "name": "needs_review",
+        "mutable": false,
+        "input_type": "checkbox",
+        "default_value": "false",
+        "values": [
+          "false"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "review_required",
+    "color": "#E91E63",
+    "type": "tag",
+    "attributes": [
+      {
+        "name": "reason",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "__undefined__",
+        "values": [
+          "__undefined__",
+          "severe_weather_snow_rain",
+          "zero_visibility",
+          "unclear_road_boundary",
+          "conflicting_evidence"
+        ]
+      }
+    ]
+  }
+]
