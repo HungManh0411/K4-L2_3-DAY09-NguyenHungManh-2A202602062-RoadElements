@@ -142,12 +142,58 @@ Dưới đây là các ảnh ví dụ mẫu trong tập dữ liệu (thuộc spl
 | `BDD10` | Phố nội đô, xe ô tô đỗ kín lề bên phải | 1 polygon `direct` ở giữa; mép phải bo sát sườn hàng xe đang đỗ. Không vẽ luồn vào gầm xe đỗ. | Mục 5: Xe đỗ tĩnh bên lề là Non-drivable. |
 | `BDD16` | Hầm chui, ánh sáng chuyển từ sáng sang tối | Polygon `direct` kéo dài vào trong hầm tới điểm cuối nhìn thấy rõ vách hầm và vạch phân làn. | Mục 6: Dừng tại điểm giới hạn nhìn rõ; giảm Opacity để quan sát. |
 
+### Ảnh minh họa
+
+`BDD01` — tách từng làn; vùng sọc chéo bên phải và barrier bê tông không vẽ.
+
+![BDD01 cao tốc nhiều làn và vùng sọc chéo](../data/bdd100k/BDD01.jpg)
+
+`BDD02` — polygon phủ trùm vạch đi bộ; mép phải dừng tại chân bó vỉa.
+
+![BDD02 đại lộ có vạch đi bộ và bó vỉa](../data/bdd100k/BDD02.jpg)
+
+`BDD03` — biên polygon uốn theo vạch cong; vạch vàng bên trái là lề, không vẽ ra cỏ và guardrail.
+
+![BDD03 cao tốc cong](../data/bdd100k/BDD03.jpg)
+
+`BDD10` — mép phải bo theo sườn hàng xe đỗ, không luồn vào gầm xe.
+
+![BDD10 phố xe đỗ kín lề](../data/bdd100k/BDD10.jpg)
+
+`BDD16` — kéo polygon vào vùng còn thấy vạch dưới gầm cầu; dừng khi vách và vạch không còn rõ.
+
+![BDD16 gầm cầu sáng tối](../data/bdd100k/BDD16.jpg)
+
 ---
 
 ## 10. Common mistakes
 
 1. **Lấn sang làn đối diện (Critical Error):** Vẽ polygon trùm qua vạch vàng kép sang làn ngược chiều. ➔ *Khắc phục:* Luôn tìm vạch tim đường và hướng đầu xe đối diện trước khi hạ bút vẽ biên trái.
+
+   `BDD07` — vạch vàng kép nằm giữa; xe đối diện ở bên trái vạch. Biên trái của `direct` dừng tại mép phải vạch vàng, không phủ sang làn kia.
+
+   ![BDD07 vạch vàng kép và làn ngược chiều](../data/bdd100k/BDD07.jpg)
+
 2. **Trèo lên vỉa hè hoặc đảo giao thông (Critical/Major Error):** Kéo góc polygon vượt lên trên gờ bó vỉa. ➔ *Khắc phục:* Phóng to ảnh (Zoom) và hạ điểm chính xác tại chân mép đá bó vỉa.
+
+   `BDD15` — bó vỉa sơn đỏ-trắng bên phải. Polygon làn dừng tại chân bó vỉa; xe đỗ nằm sau bó vỉa nên không kéo polygon tới thân xe.
+
+   ![BDD15 bó vỉa đỏ trắng và xe đỗ phía sau](../data/bdd100k/BDD15.jpg)
+
 3. **Vẽ lấn vào gầm xe đỗ bên đường:** ➔ *Khắc phục:* Chỉ coi làn đường thông thoáng là drivable; hàng xe đỗ là vật cản tĩnh, phải bo viền ngoài thân xe.
+
+   `BDD10` — hàng xe đỗ sát lề. Mép polygon đi theo sườn ngoài thân xe, chừa gầm xe ra ngoài.
+
+   ![BDD10 bo polygon theo hàng xe đỗ](../data/bdd100k/BDD10.jpg)
+
 4. **Cắt đứt polygon tại vạch người đi bộ (Crosswalk):** Nhầm vạch ngựa vằn là vùng cấm đi. ➔ *Khắc phục:* Vạch đi bộ vẫn là mặt đường cho xe chạy khi có quyền ưu tiên, polygon phải vẽ phủ trùm qua.
+
+   `BDD02` — vạch ngựa vằn ngang mặt đường. Polygon `direct` chạy liên tục qua vạch, không tách thành hai mảnh tại crosswalk.
+
+   ![BDD02 vạch đi bộ phải phủ trùm](../data/bdd100k/BDD02.jpg)
+
 5. **Vẽ chung 2 làn tách biệt thành 1 polygon:** ➔ *Khắc phục:* Mỗi dải đường rời rạc bắt buộc phải bấm nút **Done (N)** để tạo một polygon riêng biệt.
+
+   `BDD01` — các làn cùng chiều tách bởi vạch trắng. Mỗi làn một polygon; vùng sọc chéo bên phải là polygon riêng bị bỏ qua, không gộp vào làn cạnh nó.
+
+   ![BDD01 mỗi làn một polygon](../data/bdd100k/BDD01.jpg)
