@@ -3,8 +3,8 @@
 Điền trước phút 15. Thay mọi placeholder; còn sót thì `make status` báo ở gate G1.
 
 - **Team:** team08
-- **Nhóm peer test bài của mình:** TODO (cặp A ↔ B; số nhóm lẻ thì ring 3 nhóm A → B → C → A — Lab Coach công bố)
-- **Nhóm mình test bài của:** TODO
+- **Nhóm peer test bài của mình:** team03 (cặp A ↔ B; số nhóm lẻ thì ring 3 nhóm A → B → C → A — Lab Coach công bố)
+- **Nhóm mình test bài của:** team03
 - **Problem family:** Drivable area tại ranh giới vỉa hè, lối đi bộ và lề đường
 - **Nguồn ảnh:** `bdd100k` (chỉ dùng ảnh trong `data/`)
 

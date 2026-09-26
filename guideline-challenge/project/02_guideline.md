@@ -1,6 +1,6 @@
 # Annotation guideline — Drivable Area tại ranh giới mặt đường, vỉa hè và lề đường
 
-**Version:** v1
+**Version:** v2
 
 ---
 

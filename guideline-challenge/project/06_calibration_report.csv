@@ -1,1 +1,5 @@
 sample_id,item,values_by_annotator,diagnosis,action,rule_change
+BDD04,sidewalk,thang=3; nam=1,guideline_gap,revise_rule,Mục 4.4 và mục 1: Toàn bộ dải vỉa hè bao gồm cả các đoạn dốc lối vào garage bên phải đều thuộc class sidewalk và vẽ polygon bao phủ liên tục không ngắt quãng thành nhiều mảnh nhỏ.
+BDD10,alternative_drivable,thang=5; nam=3,guideline_gap,revise_rule,Mục 1 và mục 4.2: Không vẽ alternative_drivable vào các ô đỗ xe bên lề đường; chỉ gán nhãn cho các làn xe chạy hợp pháp cùng chiều.
+BDD10,sidewalk,thang=2; nam=0,guideline_gap,revise_rule,Mục 6 Occlusion: Vỉa hè bị hàng xe đỗ tĩnh che khuất hoàn toàn thì IGNORE; chỉ gán nhãn sidewalk khi đoạn vỉa hè lộ rõ với bề rộng nhìn thấy >= 10px.
+BDD11,uncertain_area,thang=2; nam=1,data_ambiguity,add_example,Mục 5: Thêm ví dụ tại ngã tư BDD11 làm rõ chỉ phần diện tích giao cắt rộng không rõ luồng ưu tiên mới dùng uncertain_area; làn xe chạy thẳng qua vạch crosswalk vẫn là direct_drivable.
