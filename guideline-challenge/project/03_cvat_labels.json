@@ -28,6 +28,12 @@
     ]
   },
   {
+    "name": "sidewalk",
+    "color": "#3366FF",
+    "type": "polygon",
+    "attributes": []
+  },
+  {
     "name": "review_required",
     "color": "#E91E63",
     "type": "tag",

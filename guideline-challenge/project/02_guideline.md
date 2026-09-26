@@ -10,10 +10,9 @@
 - **Trong scope (Bắt buộc gắn nhãn):**
   - Mặt đường xe chạy mà xe ego đang lưu thông trực tiếp (`direct`).
   - Các làn xe cùng chiều bên cạnh mà ego có thể chuyển làn sang hợp pháp (`alternative`).
-  - Vùng chuyển tiếp tại lối ra/vào hoặc đoạn tiếp giáp lề đường chỉ khi có bằng chứng nhìn thấy rõ rằng xe ô tô được phép đi vào.
-  - Vùng mặt đường có vạch kẻ người đi bộ (Crosswalk) hoặc vạch dừng xe (Stop line).
+  - Khu vực vỉa hè (Sidewalk) dành riêng cho người đi bộ ở hai bên đường.
 - **Ngoài scope (Bỏ qua - IGNORE, không vẽ):**
-  - Mặt phẳng vỉa hè (Sidewalk), gờ đá bó vỉa (Curb), đảo phân cách nổi, bồn hoa cây xanh.
+  - Đảo phân cách nổi, bồn hoa cây xanh.
   - Làn đường ngược chiều bị ngăn bởi vạch vàng liền (đơn hoặc kép) hoặc dải phân cách.
   - Lối đi bộ riêng biệt hoặc phần chuyển tiếp vỉa hè được hạ thấp cho người đi bộ sang đường (curb cut / pedestrian ramp).
   - Vùng thân xe và gầm xe của các phương tiện đang đỗ tĩnh dọc lề đường.
@@ -62,7 +61,11 @@ Bao gồm các thuộc tính (Attributes):
 2. **`needs_review`** (Checkbox, Default: `false`):
    - Đánh dấu tích `true` khi annotator còn nghi ngờ ranh giới do bóng râm, góc khuất hoặc ánh sáng yếu cần QA kiểm tra lại.
 
-### 4.2 Class: `review_required` (Type: `tag`)
+### 4.2 Class: `sidewalk` (Type: `polygon`)
+Bề mặt vỉa hè được nâng cao hoặc lót gạch dành riêng cho người đi bộ.
+- Bắt buộc vẽ ranh giới tách biệt hoàn toàn (không đè lên) polygon của `drivable_area`.
+
+### 4.3 Class: `review_required` (Type: `tag`)
 Gắn nhãn tag cho toàn bộ ảnh khi điều kiện môi trường hoặc chất lượng ảnh không cho phép gán nhãn đáng tin cậy.
 - **`reason`** (Select, Default: `__undefined__`):
   - `severe_weather_snow_rain`: Mưa lớn/tuyết phủ che mất hoàn toàn mặt đường.
@@ -81,7 +84,8 @@ Gắn nhãn tag cho toàn bộ ảnh khi điều kiện môi trường hoặc ch
 | Vạch đi bộ qua đường (Crosswalk) | **LABEL** (Trùm qua) | Giữ nguyên polygon `direct`/`alternative` chạy trùm qua vạch ngựa vằn. |
 | Vạch dừng xe (Stop line) | **LABEL** (Trùm qua) | Polygon phủ trùm qua vạch dừng xe. |
 | Giao lộ / Ngã tư thông thoáng | **LABEL** (`direct` / `uncertain`) | Làn đi thẳng phỏng đoán là `direct`; vùng ngã rẽ rộng là `alternative` hoặc `uncertain`. |
-| Vỉa hè, đảo nổi bê tông, bồn cây | **IGNORE** (Không vẽ) | Dừng polygon sát chân đá bó vỉa (Curb base), không trèo lên vỉa hè. |
+| Vỉa hè (Sidewalk) | **LABEL** (`sidewalk`) | Vẽ polygon bám sát theo phần đường dành cho người đi bộ. Không trèo xuống mặt đường xe chạy. |
+| Đảo nổi bê tông, bồn cây | **IGNORE** (Không vẽ) | Bỏ qua các đối tượng kiến trúc khác. |
 | Làn đường ngược chiều | **IGNORE** (Không vẽ) | **Critical!** Tuyệt đối không vẽ lấn qua tim đường / vạch vàng kép. |
 | Dải phân cách mềm (vạch chéo cấm đè) | **IGNORE** (Không vẽ) | Bo viền polygon ngoài vùng sơn mắt võng / vạch sọc chéo. |
 | Xe đang đỗ dài hạn sát lề đường | **IGNORE** phần xe chiếm | Bo polygon theo mép ngoài thân xe đỗ, không vẽ vào gầm xe đỗ. |

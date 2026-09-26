@@ -13,19 +13,13 @@ mục đích sử dụng không rõ trong ảnh. Khó khăn chính là không nh
 
 1. **Downstream task / model / user là ai?** Mô hình perception và hệ thống lập kế hoạch đường đi cần bản đồ pixel
 	các vùng xe có thể đi vào để ước lượng free space phía trước xe.
-2. **Output annotation nào thực sự cần?** Polygon theo pixel cho `drivable_area`; polygon riêng cho phần chuyển tiếp
-	nhìn thấy rõ nhưng không dành cho xe (`non_drivable_transition`); vùng không đủ bằng chứng được đánh dấu
-	`uncertain_area` và gắn tag ảnh `review_required`. Không dùng attribute.
-3. **Failure nào gây hậu quả lớn nhất?** Gán vỉa hè hoặc lối đi bộ thành `drivable_area`, khiến hệ thống có thể lập
-	đường đi vào không gian của người đi bộ. Đây là lỗi `critical`.
-4. **Khi ambiguity không resolve được, ai / ở đâu là escalation path?** Annotator vẽ `uncertain_area`, gắn
-	`review_required` cho ảnh và chuyển QA owner xem xét; không tự suy luận từ hình dạng bề mặt đơn thuần.
+2. **Output annotation nào thực sự cần?** Polygon theo pixel cho `drivable_area` (có kèm attribute `areaType` để phân biệt `direct`/`alternative`/`uncertain`); polygon rời cho `sidewalk` (vỉa hè). Nếu ảnh thiếu bằng chứng, dùng attribute `uncertain` hoặc gắn tag `review_required` cho ảnh.
+3. **Failure nào gây hậu quả lớn nhất?** Vẽ polygon `drivable_area` lấn vào khu vực `sidewalk`, khiến hệ thống có thể lập đường đi đâm vào người đi bộ. Đây là lỗi `critical`.
+4. **Khi ambiguity không resolve được, ai / ở đâu là escalation path?** Annotator vẽ polygon với attribute `uncertain`, hoặc gắn tag `review_required` cho ảnh và chuyển QA owner xem xét; không tự suy luận từ hình dạng bề mặt đơn thuần.
 
 ## Scope
 
-- **Trong scope (bắt buộc label):** Mặt đường xe chạy và phần lề liền kề chỉ khi có bằng chứng nhìn thấy được rằng
-  xe có thể đi vào; các đoạn tiếp giáp vỉa hè/lối đi bộ nơi cần quyết định ranh giới drivable. Gán polygon
-  `drivable_area`, `non_drivable_transition` hoặc `uncertain_area` theo bằng chứng.
+- **Trong scope (bắt buộc label):** Mặt đường xe chạy và phần lề liền kề chỉ khi có bằng chứng nhìn thấy được rằng xe có thể đi vào (Gán polygon `drivable_area`). Bề mặt vỉa hè dành cho người đi bộ (Gán polygon `sidewalk`).
 - **Ngoài scope (ignore):** Vùng không thuộc khu vực chuyển tiếp đang xét như mặt tiền, bãi đỗ riêng và phần cảnh
   ngoài vùng đường/lề/vỉa hè. Không cần vẽ nền ngoài scope.
 - **Geometry tolerance:** Polygon bám theo ranh giới mặt đường/curb nhìn thấy; sai lệch tối đa 3 px ở ảnh gốc
